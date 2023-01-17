@@ -1,22 +1,39 @@
-//library:use sketch/Import Librar/Add library/Minim
+//Library: use sketch / Import Library / Add Library / Minim
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 import ddf.minim.effects.*;
 import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
-
 //
 //Global Variables
+float appWidth, appHeight;
+float textX, textY;
+float forwardX, forwardY, forwardWidth, forwardHeight;
+float backwardsX, backwardsY, backwardsWidth, backwardsHeight;
+float loopX, loopY, loopWidth, loopHeight;
+float infiniteLoopX, infiniteLoopY, infiniteLoopWidth, infiniteLoopHeight;
+float muteX, muteY, muteWidth, muteHeight;
+float playX, playY, playWidth, playHeight;
+float stopX, stopY, stopWidth, stopHeight;
+float playFireX, playFireY, playFireWidth, playFireHeight;
+float stopFireX, stopFireY, stopFireWidth, stopFireHeight;
+float backgroundX, backgroundY, backgroundWidth, backgroundHeight;
+PImage fastForward, backwards, loop, infiniteLoop, mute, play, stop, background;
+boolean nightMode=false;
+color orange = #FF5F1F, nightModeOrange = #FF5F00;
 Minim minim; //creates object to access all functions
-AudioPlayer song1; //creates "Play List" variable holding extensions WAV, AIFF, AU, SND, and MP3
+AudioPlayer song1; //creates "play list" variable holding extenstions WAV, AIFF, AU, SND, and MP3
+AudioPlayer song2;
 //
-void setup () {
-  //size(500, 600); //Remind you of Display Geometry
+void setup() {
+  size(1200, 900);
+  appWidth = width;
+  appHeight = height;
   minim = new Minim(this); //load from data directory, loadFile should also load from project folder, like loadImage
-  song1 = minim.loadFile("Newsroom.mp3"); //able to pass absolute path, file name & extension, and URL
-  //song1.play(); //Parameter is milli-seconds from start of audio file to start playing
-  //
+  song1 = minim.loadFile("../FreeWare Music/MusicDownload/Little Samba - Quincas Moreira.mp3"); //able to pass absolute path, file name & extension, and URL
+  song2 = minim.loadFile("../FreeWare Music/MusicDownload/Daytime Forest Bonfire.mp3");
+  //population
   textX = appWidth * 7/20;
   textY = appHeight * 2/20;
   forwardX = appWidth * 8.5/20;
@@ -48,12 +65,12 @@ void setup () {
   playY = appHeight * 4/20;
   playWidth = appWidth * 3/20;
   playHeight = appHeight * 2/20;
-  play = loadImage ("../images/play.png");
+  play = loadImage ("../22wednesday-review-mediumSquareAt3X/play.png");
   stopX = appWidth * 12.5/20;
   stopY = appHeight * 4/20;
   stopWidth = appWidth * 3/20;
   stopHeight = appHeight * 2/20;
-  stop = loadImage ("../images/stop.png");
+  stop = loadImage ("..//stop.png");
   playFireX = appWidth * 4.5/20;
   playFireY = appHeight * 7/20;
   playFireWidth = appWidth * 3/20;
@@ -65,7 +82,7 @@ void setup () {
 }//End setup
 //
 void draw() {
- //background(orange);
+  //background(orange);
   if (nightMode==true) {
     background(nightModeOrange);
   } else {
@@ -98,15 +115,16 @@ void draw() {
   fill(0);
   textSize(40);
   text("Stop Fire", stopFireX, stopFireY, stopFireWidth, stopFireHeight);
-
 }//End draw
 //
 void keyPressed() {
-  //Key Board Short Cuts
-  //First Play Button
-  if (key=='P' || key=='p')  song1.play();//parameter is milli-seconds from start of
-  //Second Play Button,loop once
-  if (key=='L' || key=='l') song1.loop(1); //Parameter is Parameter is number of repeats
+  if (key == 'N' || key == 'n') {
+    if (nightMode==false) {
+      nightMode=true;
+    } else {
+      nightMode=false;
+    }
+  }
 }//End keyPressed
 //
 void mousePressed() {
